@@ -1,0 +1,131 @@
+{
+  "name": "@hypertrace/hyperdash",
+  "version": "0.0.0-PLACEHOLDER",
+  "license": "AGPL-3.0",
+  "main": "dist/hyperdash.umd.js",
+  "module": "dist/hyperdash.es5.js",
+  "typings": "dist/types/hyperdash.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "lint": "npm run lint:src && npm run lint:test",
+    "lint:src": "tslint --project tsconfig.json -t codeFrame 'src/**/*.ts' -e 'src/**/*.{test,spec}.ts'",
+    "lint:test": "tslint -c tslint.spec.json --project tsconfig.json -t codeFrame 'test/**/*.ts' 'src/**/*.{test,spec}.ts'",
+    "prebuild": "rimraf dist",
+    "build": "tsc --noEmit && rollup -c rollup.config.ts",
+    "start": "rollup -c rollup.config.ts -w",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:prod": "npm run lint && npm run test -- --coverage --no-cache -i",
+    "commit": "git-cz",
+    "semantic-release": "semantic-release",
+    "upload-coverage": "codecov"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
+  },
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "ts-jest"
+    },
+    "testEnvironment": "node",
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts)$",
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/test/"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    },
+    "collectCoverage": false,
+    "collectCoverageFrom": [
+      "src/**/*.ts",
+      "!src/hyperdash.ts"
+    ],
+    "reporters": [
+      "default",
+      [
+        "jest-junit",
+        {
+          "outputDirectory": "test-results"
+        }
+      ],
+      [
+        "jest-html-reporter",
+        {
+          "outputPath": "test-results/test-report.html"
+        }
+      ]
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-push": "npm run test:prod",
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^9.0.1",
+    "@commitlint/config-conventional": "^9.0.1",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^8.0.1",
+    "@rollup/plugin-typescript": "^4.1.2",
+    "@types/jest": "^26.0.0",
+    "@types/lodash": "^4.14.155",
+    "@types/node": "^14.0.13",
+    "commitizen": "^4.1.2",
+    "core-js": "3.6.5",
+    "cz-conventional-changelog": "^3.2.0",
+    "husky": "^4.2.5",
+    "jest": "^26.0.1",
+    "jest-config": "^26.0.1",
+    "jest-html-reporter": "^3.1.3",
+    "jest-junit": "^11.0.1",
+    "prettier": "^2.0.5",
+    "pretty-quick": "^2.0.1",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.18.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-sourcemaps": "^0.6.2",
+    "rollup-plugin-typescript2": "^0.27.1",
+    "rxjs": "6.5.5",
+    "semantic-release": "17.0.8",
+    "ts-jest": "^26.1.0",
+    "tslint": "^6.1.2",
+    "tslint-config-prettier": "^1.18.0",
+    "typedoc": "^0.17.7",
+    "typescript": "^3.9.5"
+  },
+  "dependencies": {
+    "lodash": "^4.17.15"
+  },
+  "peerDependencies": {
+    "rxjs": "^6.5.5",
+    "core-js": "^3.6.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:hypertrace/hyperdash.git"
+  },
+  "publishConfig": {
+    "registry": "https://api.bintray.com/npm/hypertrace/npm"
+  }
+}

@@ -1,0 +1,4 @@
+{
+  "typescript.preferences.quoteStyle": "single",
+  "typescript.preferences.importModuleSpecifier": "relative"
+}

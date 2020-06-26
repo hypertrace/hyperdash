@@ -1,0 +1,35 @@
+version: v1.0
+name: Dash POC
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+
+blocks:
+  - name: Install dependencies
+    task:
+      prologue:
+        commands:
+          - sem-version node 11.1
+      jobs:
+        - name: npm install and cache
+          commands:
+            - checkout
+            - cache restore node-modules-$(checksum package-lock.json)
+            - npm install
+            - cache store node-modules-$(checksum package-lock.json) node_modules
+
+  - name: "Build"
+    task:
+      prologue:
+        commands:
+          - sem-version node 11.1
+          - checkout
+          - cache restore node-modules-$(checksum package-lock.json)
+      jobs:
+        - name: npm run build
+          commands:
+            - npm run build
+        - name: npm run test:prod
+          commands:
+            - npm run test:prod
