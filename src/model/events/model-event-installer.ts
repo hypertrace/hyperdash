@@ -13,7 +13,7 @@ import { ModelDestroyedEvent } from './model-destroyed-event';
  */
 export class ModelEventInstaller implements ModelDecorator {
   private readonly modelEventMetadata: Map<ObjectConstructable, ModelEventMetadata[]> = new Map();
-  private lastDeferredIndexRead: number = 0;
+  private lastDeferredIndex: number = 0;
 
   public constructor(
     private readonly dashboardEventManager: DashboardEventManager,
@@ -195,12 +195,8 @@ export class ModelEventInstaller implements ModelDecorator {
   }
 
   private processRegistrationQueue(): void {
-    for (
-      this.lastDeferredIndexRead;
-      this.lastDeferredIndexRead < deferredRegistrations.length;
-      this.lastDeferredIndexRead++
-    ) {
-      const deferredRegistration = deferredRegistrations[this.lastDeferredIndexRead];
+    for (this.lastDeferredIndex; this.lastDeferredIndex < deferredRegistrations.length; this.lastDeferredIndex++) {
+      const deferredRegistration = deferredRegistrations[this.lastDeferredIndex];
       deferredRegistration(this);
     }
   }
