@@ -1,4 +1,4 @@
-import { mapValues } from 'lodash';
+import { mapValues } from 'lodash-es';
 import { PrimitiveSerializer } from './primitive-serializer';
 
 describe('Primitive serializer', () => {

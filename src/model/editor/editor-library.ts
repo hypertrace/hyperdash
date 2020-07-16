@@ -1,4 +1,4 @@
-import { uniq } from 'lodash';
+import { uniq } from 'lodash-es';
 import { DataSourceManager } from '../../data/data-source/manager/data-source-manager';
 import { RendererLibrary } from '../../renderer/registration/renderer-registration';
 import { Theme } from '../../theming/theme';

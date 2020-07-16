@@ -1,5 +1,5 @@
 // tslint:disable:completed-docs
-import { mapValues } from 'lodash';
+import { mapValues } from 'lodash-es';
 import { PropertyLocation } from '../../../model/property/property-location';
 import { DeserializationManager } from '../deserialization-manager';
 import { ObjectDeserializer } from './object-deserializer';

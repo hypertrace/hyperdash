@@ -1,4 +1,4 @@
-import { min } from 'lodash';
+import { min } from 'lodash-es';
 import { ParseNode, ParseNodeType } from './parse-node';
 
 /**

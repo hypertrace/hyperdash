@@ -1,4 +1,4 @@
-import { isNil } from 'lodash';
+import { isNil } from 'lodash-es';
 import { ModelPropertyTypeInstance, PropertyValidatorFunction } from '../model-property-type-library';
 
 const typeofValidator = (type: 'string' | 'boolean' | 'number' | 'object'): PropertyValidatorFunction => (

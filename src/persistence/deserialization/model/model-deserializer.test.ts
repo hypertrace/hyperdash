@@ -1,4 +1,4 @@
-import { mapValues } from 'lodash';
+import { mapValues } from 'lodash-es';
 import { DataSourceManager } from '../../../data/data-source/manager/data-source-manager';
 import { ModelManager } from '../../../model/manager/model-manager';
 import {

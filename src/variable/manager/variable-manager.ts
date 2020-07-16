@@ -1,4 +1,4 @@
-import { fromPairs } from 'lodash';
+import { fromPairs } from 'lodash-es';
 import { ModelChangedEvent } from '../../model/events/model-changed-event';
 import { ModelManager } from '../../model/manager/model-manager';
 import { PropertyLocation } from '../../model/property/property-location';
