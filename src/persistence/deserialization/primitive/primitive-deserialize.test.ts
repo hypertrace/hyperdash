@@ -1,4 +1,4 @@
-import { mapValues } from 'lodash';
+import { mapValues } from 'lodash-es';
 import { PrimitiveDeserializer } from './primitive-deserializer';
 
 describe('Primitive deserializer', () => {

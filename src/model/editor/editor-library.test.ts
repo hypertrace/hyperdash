@@ -1,4 +1,4 @@
-import { isNil } from 'lodash';
+import { isNil } from 'lodash-es';
 import { DataSourceManager } from '../../data/data-source/manager/data-source-manager';
 import { RendererLibrary } from '../../renderer/registration/renderer-registration';
 import { PartialObjectMock } from '../../test/partial-object-mock';

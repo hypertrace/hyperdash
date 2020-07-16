@@ -1,4 +1,4 @@
-import { cloneDeepWith, without } from 'lodash';
+import { cloneDeepWith, without } from 'lodash-es';
 import { Constructable } from '../../util/constructable';
 import { Logger } from '../../util/logging/logger';
 import { ModelApiBuilder } from '../api/builder/model-api-builder';

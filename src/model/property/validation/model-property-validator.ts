@@ -1,4 +1,4 @@
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 import { Logger } from '../../../util/logging/logger';
 import { ModelPropertyMetadata } from '../../registration/model-registration';
 import { ModelPropertyTypeLibrary } from '../model-property-type-library';

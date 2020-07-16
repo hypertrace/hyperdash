@@ -1,4 +1,4 @@
-import { difference, get } from 'lodash';
+import { difference, get } from 'lodash-es';
 import { ExpressionParser } from '../parser/expression-parser';
 import { ParseNode, ParseNodeType } from '../parser/parse-node';
 import { ResolveDictionary } from '../variable-dictionary';

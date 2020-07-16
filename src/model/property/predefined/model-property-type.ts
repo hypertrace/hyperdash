@@ -1,4 +1,4 @@
-import { isNil } from 'lodash';
+import { isNil } from 'lodash-es';
 import { DeserializationManager } from '../../../persistence/deserialization/deserialization-manager';
 import { ModelJson } from '../../../persistence/model-json';
 import { Constructable } from '../../../util/constructable';

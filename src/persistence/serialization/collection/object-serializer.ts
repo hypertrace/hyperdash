@@ -1,4 +1,4 @@
-import { mapValues } from 'lodash';
+import { mapValues } from 'lodash-es';
 import { PropertyLocation } from '../../../model/property/property-location';
 import { SerializationManager } from '../serialization-manager';
 import { Serializer } from '../serializer';

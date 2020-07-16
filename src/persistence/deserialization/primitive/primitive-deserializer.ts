@@ -1,4 +1,4 @@
-import { includes } from 'lodash';
+import { includes } from 'lodash-es';
 import { JsonPrimitive } from '../../model-json';
 import { Deserializer } from '../deserializer';
 

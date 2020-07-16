@@ -1,4 +1,4 @@
-import { mapValues } from 'lodash';
+import { mapValues } from 'lodash-es';
 import { PropertyLocation } from '../../../model/property/property-location';
 import { JsonPrimitive } from '../../model-json';
 import { DeserializationManager } from '../deserialization-manager';

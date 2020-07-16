@@ -1,4 +1,4 @@
-import { cloneDeep, defaults, startCase } from 'lodash';
+import { cloneDeep, defaults, startCase } from 'lodash-es';
 import { Constructable, ObjectConstructable, UnknownConstructable } from '../../util/constructable';
 import { Logger } from '../../util/logging/logger';
 import { getReflectedPropertyType } from '../../util/reflection/reflection-utilities';

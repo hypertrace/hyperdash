@@ -1,6 +1,6 @@
 # Getting Started
 
-[![CircleCI](https://circleci.com/gh/hypertrace/hyperdash.svg?style=svg)](https://circleci.com/gh/hypertrace/hyperdash)
+[![CircleCI](https://circleci.com/gh/hypertrace/hyperdash.svg?style=shield)](https://circleci.com/gh/hypertrace/hyperdash)
 [![codecov](https://codecov.io/gh/hypertrace/hyperdash/branch/master/graph/badge.svg)](https://codecov.io/gh/hypertrace/hyperdash)
 
 ## Prerequisites
