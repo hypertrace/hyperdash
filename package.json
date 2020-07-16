@@ -1,7 +1,7 @@
 {
   "name": "@hypertrace/hyperdash",
   "version": "0.0.0-PLACEHOLDER",
-  "license": "AGPL-3.0",
+  "license": "LicenseRef-LICENSE",
   "main": "dist/hyperdash.umd.js",
   "module": "dist/hyperdash.es5.js",
   "typings": "dist/types/hyperdash.d.ts",
