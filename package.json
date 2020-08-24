@@ -131,5 +131,10 @@
   },
   "publishConfig": {
     "registry": "https://api.bintray.com/npm/hypertrace/npm"
+  },
+  "release": {
+    "branches": [
+      "main"
+    ]
   }
 }
