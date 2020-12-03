@@ -13,12 +13,12 @@ export class DeserializationManager {
   public constructor(private readonly logger: Logger) {}
 
   /**
-   * Adds a new deserialier to the lookup path for deserialization
+   * Adds a new deserialier to the lookup path for deserialization with highest priority
    */
   public registerDeserializer<TSerialized extends JsonPrimitive = JsonPrimitive, TDeserialized = unknown>(
     deserializer: Deserializer<TSerialized, TDeserialized>
   ): void {
-    this.deserializers.push(deserializer as Deserializer);
+    this.deserializers.unshift(deserializer as Deserializer);
   }
 
   /**
