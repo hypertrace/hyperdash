@@ -33,6 +33,7 @@ export * from './model/registration/model-registration';
 export * from './persistence/deserialization/collection/array-deserializer';
 export * from './persistence/deserialization/collection/object-deserializer';
 export * from './persistence/deserialization/deserialization-manager';
+export { Deserializer } from './persistence/deserialization/deserializer';
 export * from './persistence/deserialization/model/model-deserializer';
 export * from './persistence/deserialization/primitive/primitive-deserializer';
 export * from './persistence/deserialization/variable/variable-deserializer';
