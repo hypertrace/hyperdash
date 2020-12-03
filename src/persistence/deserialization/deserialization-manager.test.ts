@@ -29,7 +29,7 @@ describe('Deserialization manager', () => {
     expect(deserializer.deserialize).toHaveBeenCalledTimes(1);
   });
 
-  test('uses first matching deserializer', () => {
+  test('uses most recently registered matching deserializer', () => {
     const firstDeserializer = createDeserializerMatchingNumber(5);
     const secondDeserializer = createDeserializerMatchingNumber(6);
     const thirdDeserializer = createDeserializerMatchingNumber(6);
@@ -41,9 +41,9 @@ describe('Deserialization manager', () => {
 
     expect(firstDeserializer.deserialize).not.toHaveBeenCalled();
 
-    expect(secondDeserializer.deserialize).toHaveBeenCalledTimes(1);
+    expect(thirdDeserializer.deserialize).toHaveBeenCalledTimes(1);
 
-    expect(thirdDeserializer.deserialize).not.toHaveBeenCalled();
+    expect(secondDeserializer.deserialize).not.toHaveBeenCalled();
   });
 
   test('throws error if no matching deserializer found', () => {
