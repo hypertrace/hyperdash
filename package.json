@@ -91,7 +91,7 @@
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
     "@rollup/plugin-typescript": "^8.0.0",
-    "@types/jest": "^26.0.15",
+    "@types/jest": "^26.0.16",
     "@types/lodash-es": "^4.17.3",
     "@types/node": "^14.14.10",
     "commitizen": "^4.2.2",
