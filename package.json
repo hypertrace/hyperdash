@@ -119,7 +119,7 @@
     "typescript": "^4.0.5"
   },
   "dependencies": {
-    "lodash-es": "^4.17.15"
+    "lodash-es": "^4.17.20"
   },
   "peerDependencies": {
     "rxjs": "^6.5.5",
