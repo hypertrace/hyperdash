@@ -22,33 +22,8 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}
       - run: npm run build
       - run: npm run test:prod
-      - codecov/upload
-      - store_test_results:
-          path: test-results
-      - store_artifacts:
-          path: test-results
-  publish:
-    executor: node
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-      - run: npm ci
-      - run: npm run build
-      - run: npm run semantic-release
 workflows:
   version: 2
   build-and-publish:
     jobs:
       - build
-      - publish:
-          context: hypertrace-publishing
-          requires:
-            - build
-          filters:
-            branches:
-              only:
-                - main
