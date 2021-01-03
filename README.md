@@ -1,6 +1,6 @@
 # Getting Started
 
-[![CircleCI](https://circleci.com/gh/hypertrace/hyperdash.svg?style=shield)](https://circleci.com/gh/hypertrace/hyperdash)
+![build-and-test](https://github.com/hypertrace/hyperdash/workflows/build-and-test/badge.svg)
 [![codecov](https://codecov.io/gh/hypertrace/hyperdash/branch/main/graph/badge.svg)](https://codecov.io/gh/hypertrace/hyperdash)
 
 ## Prerequisites
