@@ -1,4 +1,5 @@
 import { fromPairs } from 'lodash-es';
+import { BeforeModelDestroyedEvent } from '../../model/events/before-model-destroyed-event';
 import { ModelChangedEvent } from '../../model/events/model-changed-event';
 import { ModelManager } from '../../model/manager/model-manager';
 import { PropertyLocation } from '../../model/property/property-location';
@@ -22,7 +23,8 @@ export class VariableManager {
   public constructor(
     private readonly logger: Logger,
     private readonly modelManager: ModelManager,
-    private readonly modelChangedEvent: ModelChangedEvent
+    private readonly modelChangedEvent: ModelChangedEvent,
+    private readonly beforeModelDestroyedEvent: BeforeModelDestroyedEvent
   ) {}
 
   /**
@@ -86,6 +88,10 @@ export class VariableManager {
     } else {
       referenceMap.set(location.toString(), reference);
     }
+
+    this.beforeModelDestroyedEvent
+      .getBeforeDestructionObservable(location.parentModel)
+      .subscribe(() => this.deregisterReference(location));
 
     return this.updateReference(reference);
   }

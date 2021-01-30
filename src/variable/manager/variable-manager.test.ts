@@ -1,4 +1,6 @@
 // tslint:disable:no-invalid-template-strings
+import { EMPTY, Subject } from 'rxjs';
+import { BeforeModelDestroyedEvent } from '../../model/events/before-model-destroyed-event';
 import { ModelChangedEvent } from '../../model/events/model-changed-event';
 import { ModelManager } from '../../model/manager/model-manager';
 import { PropertyLocation } from '../../model/property/property-location';
@@ -11,6 +13,7 @@ describe('Variable manager', () => {
   let mockLogger: Partial<Logger>;
   let mockModelManager: Partial<ModelManager>;
   let mockModelChangedEvent: Partial<ModelChangedEvent>;
+  let mockBeforeModelDestroyedEvent: Partial<BeforeModelDestroyedEvent>;
   const model = {};
   const parent = {};
   const root = {};
@@ -35,10 +38,15 @@ describe('Variable manager', () => {
       })
     };
 
+    mockBeforeModelDestroyedEvent = {
+      getBeforeDestructionObservable: jest.fn()
+    };
+
     manager = new VariableManager(
       mockLogger as Logger,
       mockModelManager as ModelManager,
-      mockModelChangedEvent as ModelChangedEvent
+      mockModelChangedEvent as ModelChangedEvent,
+      mockBeforeModelDestroyedEvent as BeforeModelDestroyedEvent
     );
   });
 
@@ -106,6 +114,7 @@ describe('Variable manager reference tracking', () => {
   let mockLogger: PartialObjectMock<Logger>;
   let mockModelManager: PartialObjectMock<ModelManager>;
   let mockModelChangedEvent: PartialObjectMock<ModelChangedEvent>;
+  let mockBeforeModelDestroyedEvent: Partial<BeforeModelDestroyedEvent>;
 
   let mockParentLocation: PartialObjectMock<PropertyLocation>;
   const parent = {};
@@ -132,6 +141,10 @@ describe('Variable manager reference tracking', () => {
       )
     };
 
+    mockBeforeModelDestroyedEvent = {
+      getBeforeDestructionObservable: jest.fn().mockReturnValue(EMPTY)
+    };
+
     mockModelLocation = {
       parentModel: model,
       setProperty: jest.fn(),
@@ -147,7 +160,8 @@ describe('Variable manager reference tracking', () => {
     manager = new VariableManager(
       mockLogger as Logger,
       mockModelManager as ModelManager,
-      mockModelChangedEvent as ModelChangedEvent
+      mockModelChangedEvent as ModelChangedEvent,
+      mockBeforeModelDestroyedEvent as BeforeModelDestroyedEvent
     );
   });
 
@@ -322,5 +336,28 @@ describe('Variable manager reference tracking', () => {
       .toHaveBeenCalledWith(
         'Attempted to resolve reference at modelProp which does not contain a registered reference'
       );
+  });
+
+  test('removes dangling references after a model is destroyed', () => {
+    const destroySubject = new Subject();
+    mockBeforeModelDestroyedEvent.getBeforeDestructionObservable = jest
+      .fn()
+      .mockReturnValue(destroySubject.asObservable());
+
+    manager.registerReference(mockModelLocation as PropertyLocation, '${test}');
+    manager.set('test', 'foo', parent);
+
+    destroySubject.next(model);
+    destroySubject.complete();
+
+    // Reference should no longer be tracked
+    expect(manager.isVariableReference(mockModelLocation as PropertyLocation)).toBe(false);
+
+    // Setting a value should not call model manager or set property
+    (mockModelManager.getParent as jest.Mock).mockClear();
+    manager.set('test', 'bar', parent);
+
+    expect(mockModelManager.getParent).not.toHaveBeenCalled();
+    expect(mockModelLocation.setProperty).not.toHaveBeenCalledWith('bar');
   });
 });

@@ -3,19 +3,24 @@ import { PartialObjectMock } from '../../test/partial-object-mock';
 import { Logger } from '../../util/logging/logger';
 import { ModelApiBuilder } from '../api/builder/model-api-builder';
 import { ModelApi } from '../api/model-api';
+import { BeforeModelDestroyedEvent } from '../events/before-model-destroyed-event';
 import { ModelCreatedEvent } from '../events/model-created-event';
 import { ModelDestroyedEvent } from '../events/model-destroyed-event';
 import { ModelOnDestroy, ModelOnInit } from './model-lifecycle-hooks';
 import { ModelManager } from './model-manager';
 
 describe('Model manager', () => {
-  const testClass = class TestClass {};
+  const testClass = class TestClass {
+    // Value used to disambiguate equality between instances
+    public readonly value: number = Math.random();
+  };
   let manager: ModelManager;
   let mockLogger: PartialObjectMock<Logger>;
   let mockApiBuilder: PartialObjectMock<ModelApiBuilder<ModelApi>>;
 
   let mockCreatedEvent: PartialObjectMock<ModelCreatedEvent>;
   let mockDestroyedEvent: PartialObjectMock<ModelDestroyedEvent>;
+  let mockBeforeDestroyedEvent: PartialObjectMock<BeforeModelDestroyedEvent>;
 
   beforeEach(() => {
     mockCreatedEvent = {
@@ -23,6 +28,10 @@ describe('Model manager', () => {
     };
 
     mockDestroyedEvent = {
+      publish: jest.fn()
+    };
+
+    mockBeforeDestroyedEvent = {
       publish: jest.fn()
     };
 
@@ -43,7 +52,8 @@ describe('Model manager', () => {
     manager = new ModelManager(
       mockLogger as Logger,
       mockCreatedEvent as ModelCreatedEvent,
-      mockDestroyedEvent as ModelDestroyedEvent
+      mockDestroyedEvent as ModelDestroyedEvent,
+      mockBeforeDestroyedEvent as BeforeModelDestroyedEvent
     );
 
     manager.registerModelApiBuilder(mockApiBuilder as ModelApiBuilder<ModelApi>);
@@ -233,7 +243,16 @@ describe('Model manager', () => {
     expect(mockCreatedEvent.publish).toHaveBeenNthCalledWith(1, root);
     expect(mockCreatedEvent.publish).toHaveBeenNthCalledWith(2, firstChild);
 
+    mockBeforeDestroyedEvent.publish = jest.fn(model => {
+      expect(manager.isTrackedModel(model)).toBe(true);
+      expect(mockDestroyedEvent.publish).not.toHaveBeenCalledWith(model);
+    });
+
     manager.destroy(root);
+
+    expect(mockBeforeDestroyedEvent.publish).toHaveBeenCalledTimes(2);
+    expect(mockBeforeDestroyedEvent.publish).toHaveBeenNthCalledWith(1, firstChild);
+    expect(mockBeforeDestroyedEvent.publish).toHaveBeenNthCalledWith(2, root);
 
     expect(mockDestroyedEvent.publish).toHaveBeenCalledTimes(2);
     expect(mockDestroyedEvent.publish).toHaveBeenNthCalledWith(1, firstChild);
@@ -292,7 +311,8 @@ describe('Model manager', () => {
     manager = new ModelManager(
       mockLogger as Logger,
       mockCreatedEvent as ModelCreatedEvent,
-      mockDestroyedEvent as ModelDestroyedEvent
+      mockDestroyedEvent as ModelDestroyedEvent,
+      mockBeforeDestroyedEvent as BeforeModelDestroyedEvent
     ); // Rebuild so we don't use the mock api build from other tests
 
     const modelAClass = class {};
