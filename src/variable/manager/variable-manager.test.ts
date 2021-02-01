@@ -20,7 +20,8 @@ describe('Variable manager', () => {
 
   beforeEach(() => {
     mockLogger = {
-      warn: jest.fn()
+      warn: jest.fn(),
+      error: jest.fn()
     };
     mockModelChangedEvent = {
       publishChange: jest.fn()
@@ -359,5 +360,23 @@ describe('Variable manager reference tracking', () => {
 
     expect(mockModelManager.getParent).not.toHaveBeenCalled();
     expect(mockModelLocation.setProperty).not.toHaveBeenCalledWith('bar');
+  });
+
+  test('dangling reference removal handles case where reference previously removed', () => {
+    const destroySubject = new Subject();
+    mockBeforeModelDestroyedEvent.getBeforeDestructionObservable = jest
+      .fn()
+      .mockReturnValue(destroySubject.asObservable());
+
+    manager.registerReference(mockModelLocation as PropertyLocation, '${test}');
+    manager.set('test', 'foo', parent);
+    manager.deregisterReference(mockModelLocation as PropertyLocation);
+
+    // Reference should no longer be tracked
+    expect(manager.isVariableReference(mockModelLocation as PropertyLocation)).toBe(false);
+
+    destroySubject.next(model);
+    destroySubject.complete();
+    expect(mockLogger.error).not.toHaveBeenCalled();
   });
 });

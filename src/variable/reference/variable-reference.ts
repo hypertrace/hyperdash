@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import { PropertyLocation } from '../../model/property/property-location';
 import { EvaluationResult, VariableEvaluator } from '../evaluator/variable-evaluator';
 import { ResolveDictionary } from '../variable-dictionary';
@@ -8,7 +9,11 @@ import { ResolveDictionary } from '../variable-dictionary';
 export class VariableReference<T = unknown> {
   private readonly evaluator: VariableEvaluator<T>;
 
-  public constructor(variableString: string, public readonly location: PropertyLocation<T>) {
+  public constructor(
+    variableString: string,
+    public readonly location: PropertyLocation<T>,
+    public readonly autoCleanupSubscription: Subscription
+  ) {
     this.evaluator = new VariableEvaluator(variableString);
   }
 

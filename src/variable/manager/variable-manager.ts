@@ -78,20 +78,21 @@ export class VariableManager {
    * Throws Error if the provided location is already being tracked
    */
   public registerReference(location: PropertyLocation, variableExpression: string): unknown {
-    let reference = new VariableReference(variableExpression, location);
-
     const referenceMap = this.getOrCreateReferenceMapForModelContainingLocation(location);
 
     if (referenceMap.has(location.toString())) {
       this.logger.error(`Attempting to register reference which has already been declared at ${location.toString()}`);
-      reference = referenceMap.get(location.toString())!;
     } else {
-      referenceMap.set(location.toString(), reference);
+      const autoCleanupSubscription = this.beforeModelDestroyedEvent
+        .getBeforeDestructionObservable(location.parentModel)
+        .subscribe(() => this.deregisterReference(location));
+      referenceMap.set(
+        location.toString(),
+        new VariableReference(variableExpression, location, autoCleanupSubscription)
+      );
     }
 
-    this.beforeModelDestroyedEvent
-      .getBeforeDestructionObservable(location.parentModel)
-      .subscribe(() => this.deregisterReference(location));
+    const reference = referenceMap.get(location.toString())!;
 
     return this.updateReference(reference);
   }
@@ -132,6 +133,7 @@ export class VariableManager {
     this.getOrCreateReferenceMapForModelContainingLocation(location).delete(reference.location.toString());
 
     const result = reference.unresolve();
+    reference.autoCleanupSubscription.unsubscribe();
     this.updateValueReferenceTrackingFromEvaluationResult(reference, result);
 
     return result.value!;
