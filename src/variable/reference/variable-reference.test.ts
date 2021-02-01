@@ -1,4 +1,5 @@
 // tslint:disable:no-invalid-template-strings
+import { Subscription } from 'rxjs';
 import { PropertyLocation } from '../../model/property/property-location';
 import { EvaluationResult, VariableEvaluator } from '../evaluator/variable-evaluator';
 import { VariableReference } from './variable-reference';
@@ -10,6 +11,7 @@ describe('Variable reference', () => {
   let mockLocation: Partial<PropertyLocation>;
   let mockEvaluationResult: Partial<EvaluationResult<unknown>>;
   let mockUnevaluationResult: Partial<EvaluationResult<unknown>>;
+  const closeSubscription: Subscription = new Subscription();
 
   beforeEach(() => {
     mockedVariableEvaluatorConstructor.mockReset();
@@ -32,14 +34,14 @@ describe('Variable reference', () => {
   });
 
   test('resolve sets the property to the evaluation result', () => {
-    const ref = new VariableReference('${test}', mockLocation as PropertyLocation);
+    const ref = new VariableReference('${test}', mockLocation as PropertyLocation, closeSubscription);
 
     expect(ref.resolve({})).toBe(mockEvaluationResult);
     expect(mockLocation.setProperty).toHaveBeenCalledWith(mockEvaluationResult.value);
   });
 
   test('unresolve returns the unevaluate result', () => {
-    const ref = new VariableReference('${test}', mockLocation as PropertyLocation);
+    const ref = new VariableReference('${test}', mockLocation as PropertyLocation, closeSubscription);
     expect(ref.unresolve()).toBe(mockUnevaluationResult);
   });
 });

@@ -3,6 +3,7 @@ import { Constructable } from '../../util/constructable';
 import { Logger } from '../../util/logging/logger';
 import { ModelApiBuilder } from '../api/builder/model-api-builder';
 import { ModelApi } from '../api/model-api';
+import { BeforeModelDestroyedEvent } from '../events/before-model-destroyed-event';
 import { ModelCreatedEvent } from '../events/model-created-event';
 import { ModelDestroyedEvent } from '../events/model-destroyed-event';
 import { ModelOnDestroy, ModelOnInit } from './model-lifecycle-hooks';
@@ -19,7 +20,8 @@ export class ModelManager {
   public constructor(
     private readonly logger: Logger,
     private readonly modelCreatedEvent: ModelCreatedEvent,
-    private readonly modelDestroyedEvent: ModelDestroyedEvent
+    private readonly modelDestroyedEvent: ModelDestroyedEvent,
+    private readonly beforeModelDestroyedEvent: BeforeModelDestroyedEvent
   ) {}
 
   /**
@@ -232,6 +234,8 @@ export class ModelManager {
 
     // Depth first, destroy children before self
     instanceData.children.forEach(child => this.destroy(child));
+
+    this.beforeModelDestroyedEvent.publish(modelInstance);
 
     if (this.modelHasDestroyHook(modelInstance)) {
       modelInstance.modelOnDestroy();

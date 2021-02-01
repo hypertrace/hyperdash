@@ -122,8 +122,8 @@
     "lodash-es": "^4.17.20"
   },
   "peerDependencies": {
-    "rxjs": "^6.5.5",
-    "core-js": "^3.6.5"
+    "core-js": "^3.6.5",
+    "rxjs": "^6.5.5"
   },
   "repository": {
     "type": "git",

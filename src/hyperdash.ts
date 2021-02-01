@@ -19,6 +19,7 @@ export * from './model/editor/editor-library';
 export * from './model/events/model-changed-event';
 export * from './model/events/model-created-event';
 export * from './model/events/model-destroyed-event';
+export * from './model/events/before-model-destroyed-event';
 export * from './model/events/model-event-installer';
 export * from './model/manager/model-lifecycle-hooks';
 export * from './model/manager/model-manager';

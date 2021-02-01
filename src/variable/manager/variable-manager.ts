@@ -1,4 +1,5 @@
 import { fromPairs } from 'lodash-es';
+import { BeforeModelDestroyedEvent } from '../../model/events/before-model-destroyed-event';
 import { ModelChangedEvent } from '../../model/events/model-changed-event';
 import { ModelManager } from '../../model/manager/model-manager';
 import { PropertyLocation } from '../../model/property/property-location';
@@ -22,7 +23,8 @@ export class VariableManager {
   public constructor(
     private readonly logger: Logger,
     private readonly modelManager: ModelManager,
-    private readonly modelChangedEvent: ModelChangedEvent
+    private readonly modelChangedEvent: ModelChangedEvent,
+    private readonly beforeModelDestroyedEvent: BeforeModelDestroyedEvent
   ) {}
 
   /**
@@ -76,16 +78,21 @@ export class VariableManager {
    * Throws Error if the provided location is already being tracked
    */
   public registerReference(location: PropertyLocation, variableExpression: string): unknown {
-    let reference = new VariableReference(variableExpression, location);
-
     const referenceMap = this.getOrCreateReferenceMapForModelContainingLocation(location);
 
     if (referenceMap.has(location.toString())) {
       this.logger.error(`Attempting to register reference which has already been declared at ${location.toString()}`);
-      reference = referenceMap.get(location.toString())!;
     } else {
-      referenceMap.set(location.toString(), reference);
+      const autoCleanupSubscription = this.beforeModelDestroyedEvent
+        .getBeforeDestructionObservable(location.parentModel)
+        .subscribe(() => this.deregisterReference(location));
+      referenceMap.set(
+        location.toString(),
+        new VariableReference(variableExpression, location, autoCleanupSubscription)
+      );
     }
+
+    const reference = referenceMap.get(location.toString())!;
 
     return this.updateReference(reference);
   }
@@ -126,6 +133,7 @@ export class VariableManager {
     this.getOrCreateReferenceMapForModelContainingLocation(location).delete(reference.location.toString());
 
     const result = reference.unresolve();
+    reference.autoCleanupSubscription.unsubscribe();
     this.updateValueReferenceTrackingFromEvaluationResult(reference, result);
 
     return result.value!;
