@@ -30,6 +30,8 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Cache node modules
         uses: actions/cache@v2
@@ -53,6 +55,7 @@ jobs:
 
       - name: Publish Unit Test Results
         uses: docker://ghcr.io/enricomi/publish-unit-test-result-action:v1.6
+        continue-on-error: true
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           files: test-results/**/*.xml
