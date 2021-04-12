@@ -130,7 +130,7 @@
     "url": "git@github.com:hypertrace/hyperdash.git"
   },
   "publishConfig": {
-    "registry": "https://api.bintray.com/npm/hypertrace/npm"
+    "registry": "https://hypertrace.jfrog.io/artifactory/npm"
   },
   "release": {
     "branches": [
