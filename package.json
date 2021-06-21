@@ -104,7 +104,7 @@
     "jest-junit": "^12.2.0",
     "lodash": "^4.17.21",
     "prettier": "^2.3.1",
-    "pretty-quick": "^3.1.0",
+    "pretty-quick": "^3.1.1",
     "rimraf": "^3.0.2",
     "rollup": "^2.52.2",
     "rollup-plugin-commonjs": "^10.1.0",
