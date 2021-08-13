@@ -88,6 +88,6 @@ export class ModelSerializer implements Serializer<object, ModelJson> {
     const propertyTypeOverride = this.modelPropertyTypeLibrary.getPropertySerializer<TDeserialized>(metadata.type);
     const defaultSerialization = this.serializationManager.serialize.bind(this.serializationManager);
 
-    return propertyTypeOverride || defaultSerialization;
+    return propertyTypeOverride ?? defaultSerialization;
   }
 }

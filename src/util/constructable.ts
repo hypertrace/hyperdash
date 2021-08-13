@@ -1,7 +1,8 @@
 /**
  * A function representing a constructor for some class
  */
-// tslint:disable-next-line:no-any
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Constructable<T> = new (...args: any[]) => T;
 
 /**

@@ -156,7 +156,7 @@ export class EditorLibrary {
     displayName: string,
     typeInstance: ModelPropertyTypeInstance,
     getPropertyLocation: (model: object) => PropertyLocation<T>
-  ): UnresolvedCompositeEditorData | MultipleEditorData | undefined {
+  ): MultipleEditorData | UnresolvedCompositeEditorData | undefined {
     const allMatchingEditors = this.getAllCompatibleModelClasses(modelClasses).map(
       (compatibleConstructor): UnresolvedCompositeEditorData => ({
         title: this.modelLibrary.lookupModelMetadata(compatibleConstructor)!.displayName,
@@ -190,7 +190,7 @@ export class EditorLibrary {
 
   private getThemeEditorForClass(
     modelClass: ObjectConstructable
-  ): UnresolvedCompositeEditorData | MultipleEditorData | undefined {
+  ): MultipleEditorData | UnresolvedCompositeEditorData | undefined {
     if (this.rendererLibrary.hasRenderer(modelClass)) {
       return this.getEditorMatchingModelClasses([Theme], 'Theme', { key: '_theme' }, model =>
         this.themeManager.getPropertyLocationForTheme(model)
@@ -202,7 +202,7 @@ export class EditorLibrary {
 
   private getDataEditorForClass(
     modelClass: ObjectConstructable
-  ): UnresolvedCompositeEditorData | MultipleEditorData | undefined {
+  ): MultipleEditorData | UnresolvedCompositeEditorData | undefined {
     // Always defined, we've already done this lookup to get this far
     const modelMetadata = this.modelLibrary.lookupModelMetadata(modelClass)!;
 
@@ -212,7 +212,7 @@ export class EditorLibrary {
   }
 }
 
-export type NestedEditorData = UnresolvedCompositeEditorData | LeafEditorData | MultipleEditorData;
+export type NestedEditorData = LeafEditorData | MultipleEditorData | UnresolvedCompositeEditorData;
 
 interface EditorMetadata {
   /**
@@ -280,12 +280,12 @@ export interface CompositeEditorData extends EditorData {
   /**
    * Editor for the theme of this model. Undefined if model is not themable.
    */
-  themeEditor?: UnresolvedCompositeEditorData | MultipleEditorData;
+  themeEditor?: MultipleEditorData | UnresolvedCompositeEditorData;
 
   /**
    * Editor for the data source of this model. Undefined if model does not support data
    */
-  dataEditor?: UnresolvedCompositeEditorData | MultipleEditorData;
+  dataEditor?: MultipleEditorData | UnresolvedCompositeEditorData;
 }
 
 /**

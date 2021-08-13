@@ -58,7 +58,8 @@ export class VariableEvaluator<T = unknown> {
     if (node.error) {
       throw new Error(node.error);
     }
-    // tslint:disable-next-line:switch-default https://github.com/palantir/tslint/issues/2104
+    
+    // eslint-disable-next-line default-case
     switch (node.type) {
       case ParseNodeType.Root:
         return this.convertRootNodeToValue(node, dictionary);

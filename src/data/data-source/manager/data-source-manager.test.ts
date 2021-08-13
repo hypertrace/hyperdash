@@ -128,7 +128,7 @@ describe('Data source manager', () => {
 
     dataSourceManager.isDataSource = jest.fn(
       model => model === mockDataSource || model === mockParentDataSource
-      // tslint:disable-next-line: no-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ) as any;
 
     dataSourceManager.attach(mockDataSource as DataSource<unknown>, mockModel);
@@ -159,7 +159,7 @@ describe('Data source manager', () => {
 
     dataSourceManager.isDataSource = jest.fn(
       model => model === mockDataSource || model === mockRootDataSource
-      // tslint:disable-next-line: no-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ) as any;
 
     dataSourceManager.setRootDataSource(mockRootDataSource as DataSource<unknown>, mockRoot);

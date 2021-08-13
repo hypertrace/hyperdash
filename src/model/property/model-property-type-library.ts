@@ -33,7 +33,7 @@ export class ModelPropertyTypeLibrary {
    * Retrieves the validator function for the provided property type. Returns NO-OP validator
    * if the property type has not been registered.
    */
-  public getValidator(type: string | ModelPropertyTypeInstance): PropertyValidatorFunction {
+  public getValidator(type: ModelPropertyTypeInstance | string): PropertyValidatorFunction {
     const metadata = this.getMetadataOrLog(type);
 
     return metadata ? metadata.validator : ModelPropertyTypeLibrary.NO_OP_VALIDATOR;
@@ -44,7 +44,7 @@ export class ModelPropertyTypeLibrary {
    * the property type has not been registered, or if no serializer exists.
    */
   public getPropertySerializer<TDeserialized = unknown, TSerialized extends JsonPrimitive = JsonPrimitive>(
-    type: string | ModelPropertyTypeInstance
+    type: ModelPropertyTypeInstance | string
   ): SerializationFunction<TDeserialized, TSerialized> | undefined {
     const metadata = this.getMetadataOrLog(type);
 
@@ -56,7 +56,7 @@ export class ModelPropertyTypeLibrary {
    * the property type has not been registered, or if no deserializer exists.
    */
   public getPropertyDeserializer<TSerialized extends JsonPrimitive = JsonPrimitive, TDeserialized = unknown>(
-    type: string | ModelPropertyTypeInstance
+    type: ModelPropertyTypeInstance | string
   ): DeserializationFunction<TSerialized, TDeserialized> | undefined {
     const metadata = this.getMetadataOrLog(type);
 
@@ -67,13 +67,13 @@ export class ModelPropertyTypeLibrary {
     registrationInfo: ModelPropertyTypeRegistrationInformation
   ): ModelPropertyTypeMetadata {
     return {
-      validator: this.bindPotentialFunction(registrationInfo, 'validator') || ModelPropertyTypeLibrary.NO_OP_VALIDATOR,
+      validator: this.bindPotentialFunction(registrationInfo, 'validator') ?? ModelPropertyTypeLibrary.NO_OP_VALIDATOR,
       serializer: this.bindPotentialFunction(registrationInfo, 'serializer'),
       deserializer: this.bindPotentialFunction(registrationInfo, 'deserializer')
     };
   }
 
-  private getMetadataOrLog(type: string | ModelPropertyTypeInstance): ModelPropertyTypeMetadata | undefined {
+  private getMetadataOrLog(type: ModelPropertyTypeInstance | string): ModelPropertyTypeMetadata | undefined {
     const typeKey = this.typeToKey(type);
     if (this.propertyTypeMap.has(typeKey)) {
       return this.propertyTypeMap.get(typeKey)!;
@@ -81,7 +81,7 @@ export class ModelPropertyTypeLibrary {
     this.logger.warn(`Requested property type has not been registered: ${typeKey}`);
   }
 
-  private typeToKey(type: string | ModelPropertyTypeInstance): string {
+  private typeToKey(type: ModelPropertyTypeInstance | string): string {
     return typeof type === 'string' ? type : type.key;
   }
 

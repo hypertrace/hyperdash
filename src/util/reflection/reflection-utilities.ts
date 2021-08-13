@@ -1,15 +1,16 @@
-// tslint:disable-next-line:no-import-side-effect no-submodule-imports
+
+// eslint-disable-next-line import/no-unassigned-import
 import 'core-js/proposals/reflect-metadata';
 import { Constructable, UnknownConstructable } from '../constructable';
 
 // Augment Reflect object for core-js polyfill. Would prefer to drop this but core-js is missing good types
-// tslint:disable-next-line:no-namespace
+// eslint-disable-next-line @typescript-eslint/no-namespace
 declare namespace Reflect {
-  // tslint:disable-next-line:only-arrow-functions
+  // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
   function getMetadata<T = unknown>(
     metadataKey: unknown,
     target: object,
-    targetKey?: string | symbol | number
+    targetKey?: number | string | symbol
   ): T | undefined;
 }
 

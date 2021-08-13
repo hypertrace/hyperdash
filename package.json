@@ -11,6 +11,8 @@
   "scripts": {
     "lint": "npm run lint:src && npm run lint:test",
     "eslint:src": "eslint -c eslint.src.json --ext .ts 'src' --ignore-pattern 'src/**/*.test.ts'",
+    "eslint:src:fix": "eslint -c eslint.src.json --ext .ts 'src' --ignore-pattern 'src/**/*.test.ts' --fix",
+
     "eslint:test": "eslint -c eslint.test.json --ext .test.ts 'src'",
     "lint:src": "tslint --project tsconfig.json -t codeFrame 'src/**/*.ts' -e 'src/**/*.{test,spec}.ts'",
     "lint:test": "tslint -c tslint.spec.json --project tsconfig.json -t codeFrame 'test/**/*.ts' 'src/**/*.{test,spec}.ts'",

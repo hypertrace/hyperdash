@@ -7,7 +7,7 @@ export const deferredRendererDecoratorRegistrations: DeferredRendererDecoratorRe
 /**
  * Registers the decorated renderer with the provided information
  */
-// tslint:disable-next-line:only-arrow-functions
+// eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 export function Renderer(registrationInfo: RendererRegistrationInformation): (target: UnknownConstructable) => void {
   return (rendererClass: UnknownConstructable): void => {
     deferredRendererDecoratorRegistrations.push(rendererLibrary =>

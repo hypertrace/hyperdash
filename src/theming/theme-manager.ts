@@ -95,6 +95,7 @@ export class ThemeManager {
 
     return matchedTheme && ((matchedTheme[this.getThemeRuntimeKey(matchedTheme, propertyKey)!] as unknown) as T);
   }
+
   /**
    * Returns the original Theme object provided for this model, if any. This does not include
    * any resolved theme properties from parents or globals.

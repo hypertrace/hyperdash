@@ -37,7 +37,7 @@ export class PropertyLocation<T = unknown> {
 
   public constructor(
     public readonly parentModel: object,
-    private readonly propertyKey: string | number | symbol,
+    private readonly propertyKey: number | string | symbol,
     private readonly setter: (value: T | undefined) => void,
     private readonly getter: () => T | undefined
   ) {}
