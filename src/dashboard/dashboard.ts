@@ -5,7 +5,10 @@ import { Constructable } from '../util/constructable';
 /**
  * Represents an instantiated dashboard
  */
-// tslint:disable-next-line: no-any want any data source to be assignable here, caller should be more specific
+
+// Want any data source to be assignable here, caller should be more specific
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface Dashboard<TRoot extends object = object> {
   /**
    * The root model of the dashboard
@@ -54,6 +57,6 @@ export interface Dashboard<TRoot extends object = object> {
   /**
    * Returns the root data source of the dashboard, if set
    */
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getRootDataSource<T extends DataSource<any>>(): T | undefined;
 }

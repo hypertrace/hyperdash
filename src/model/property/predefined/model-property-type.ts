@@ -24,6 +24,7 @@ export class ModelPropertyType implements ModelPropertyTypeRegistrationInformati
     private readonly deserializationManager: DeserializationManager,
     private readonly modelManager: ModelManager
   ) {}
+
   /**
    * @inheritdoc
    */

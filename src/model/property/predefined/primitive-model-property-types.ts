@@ -1,7 +1,7 @@
 import { isNil } from 'lodash-es';
 import { ModelPropertyTypeInstance, PropertyValidatorFunction } from '../model-property-type-library';
 
-const typeofValidator = (type: 'string' | 'boolean' | 'number' | 'object'): PropertyValidatorFunction => (
+const typeofValidator = (type: 'boolean' | 'number' | 'object' | 'string'): PropertyValidatorFunction => (
   value: unknown,
   allowUndefinedOrNull: boolean
 ) => {

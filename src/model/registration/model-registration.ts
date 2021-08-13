@@ -15,6 +15,7 @@ export class ModelLibrary {
     ObjectConstructable,
     Map<string, ModelPropertyMetadata<object>>
   > = new Map();
+
   private lastDeferredIndexRead: number = 0;
   private currentlyProcessingDeferred: boolean = false;
 
@@ -148,8 +149,8 @@ export class ModelLibrary {
   private convertModelRegistrationInfoToMetadata(registrationInfo: ModelRegistrationInformation): ModelClassMetadata {
     return {
       type: registrationInfo.type,
-      displayName: registrationInfo.displayName || this.formatAsDisplayName(registrationInfo.type),
-      supportedDataSourceTypes: registrationInfo.supportedDataSourceTypes || []
+      displayName: registrationInfo.displayName ?? this.formatAsDisplayName(registrationInfo.type),
+      supportedDataSourceTypes: registrationInfo.supportedDataSourceTypes ?? []
     };
   }
 
@@ -231,7 +232,7 @@ export interface ModelPropertyRegistrationInformation {
    * See `ModelPropertyTypeLibrary`
    * An extensible string or object value that dictates the type of this property (for editing and validation)
    */
-  type: string | ModelPropertyTypeInstance;
+  type: ModelPropertyTypeInstance | string;
 
   /**
    * Is this property required to be set? If so, the editor will require it and validation will fail if missing

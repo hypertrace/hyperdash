@@ -94,7 +94,7 @@ export class DefaultLogMessage implements LogMessage {
   }
 
   private getLogMethod(): (message: string) => void {
-    /* tslint:disable:no-console */
+    /* eslint-disable no-console */
     switch (this.level) {
       case LogLevel.Warn:
         return console.warn;
@@ -106,6 +106,6 @@ export class DefaultLogMessage implements LogMessage {
       default:
         return console.info;
     }
-    /* tslint:enable:no-console */
+    /* eslint-enable no-console */
   }
 }

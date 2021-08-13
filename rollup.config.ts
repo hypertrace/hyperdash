@@ -1,4 +1,4 @@
-// tslint:disable
+// eslint-disable
 import { camelCase } from 'lodash';
 import commonjs from 'rollup-plugin-commonjs';
 import json from '@rollup/plugin-json';

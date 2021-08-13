@@ -26,6 +26,7 @@ export class DefaultModelApiBuilder implements ModelApiBuilder<ModelApi> {
     private readonly deserializationManager: DeserializationManager,
     private readonly timeRangeManager: TimeRangeManager
   ) {}
+  
   /**
    * @inheritdoc
    */

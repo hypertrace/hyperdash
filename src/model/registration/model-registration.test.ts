@@ -116,7 +116,7 @@ describe('Model properties', () => {
       required: false,
       displayName: 'My fancy string'
     });
-    // tslint:disable-next-line: no-any https://github.com/microsoft/TypeScript/issues/38009
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any https://github.com/microsoft/TypeScript/issues/38009
     library.registerModelProperty(testClass, symbolKey as any, {
       key: 'symbolKey',
       type: { key: BOOLEAN_PROPERTY.type }

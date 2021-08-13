@@ -26,34 +26,35 @@ export class Logger {
   /**
    * Log provided message at info level
    */
-  public info(message: string, source?: LogMessage | Error): LogMessage {
+  public info(message: string, source?: Error | LogMessage): LogMessage {
     return this.log(LogLevel.Info, message, source);
   }
 
   /**
    * Log provided message at debug level
    */
-  public debug(message: string, source?: LogMessage | Error): LogMessage {
+  public debug(message: string, source?: Error | LogMessage): LogMessage {
     return this.log(LogLevel.Debug, message, source);
   }
 
   /**
    * Log provided message at error level
    */
-  public error(message: string, source?: LogMessage | Error): LogMessage {
+  public error(message: string, source?: Error | LogMessage): LogMessage {
     return this.log(LogLevel.Error, message, source);
   }
+
   /**
    * Log provided message at warn level
    */
-  public warn(message: string, source?: LogMessage | Error): LogMessage {
+  public warn(message: string, source?: Error | LogMessage): LogMessage {
     return this.log(LogLevel.Warn, message, source);
   }
 
   /**
    * Log provided message at requested level
    */
-  public log(logLevel: LogLevel, message: string, source?: LogMessage | Error): LogMessage {
+  public log(logLevel: LogLevel, message: string, source?: Error | LogMessage): LogMessage {
     const loggerNamePrefix = this.loggerName.length > 0 ? `[${this.loggerName}] ` : '';
 
     const logMessage = this.logMessageBuilder(
@@ -86,7 +87,7 @@ export class Logger {
     return Logger.LOG_PRIORITY.indexOf(logMessage.level) >= Logger.LOG_PRIORITY.indexOf(minimumLevel);
   }
 
-  private convertSourceToLogMessageOrUndefined(source?: LogMessage | Error): LogMessage | undefined {
+  private convertSourceToLogMessageOrUndefined(source?: Error | LogMessage): LogMessage | undefined {
     if (source && source instanceof Error) {
       return this.logMessageBuilder(LogLevel.Error, source.message);
     }

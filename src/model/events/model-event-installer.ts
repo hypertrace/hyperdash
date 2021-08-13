@@ -177,7 +177,7 @@ export class ModelEventInstaller implements ModelDecorator {
     return this.getConstructorChain(modelClass)
       .reverse()
       .reduce<ModelEventMetadata[]>(
-        (metadata, constructor) => metadata.concat(this.modelEventMetadata.get(constructor) || []),
+        (metadata, constructor) => metadata.concat(this.modelEventMetadata.get(constructor) ?? []),
         []
       );
   }
@@ -216,7 +216,7 @@ const deferredRegistrations: DeferredRegistration[] = [];
  * As a method, an event subscriber will be invoked on each `Observer.next`, and provided as an argument any data
  * included with the event.
  */
-// tslint:disable-next-line:only-arrow-functions
+// eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 export function ModelEventSubscriber(event: DashboardEventKey): MethodDecorator & PropertyDecorator {
   return (modelPrototype: object, propertyKey: string | symbol): void => {
     deferredRegistrations.push(installer =>
@@ -235,7 +235,7 @@ export function ModelEventSubscriber(event: DashboardEventKey): MethodDecorator 
  *
  * The property must be insantiated to an object that extends the RxJS `Observable` class.
  */
-// tslint:disable-next-line:only-arrow-functions
+// eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 export function ModelEventPublisher(event: DashboardEventKey): PropertyDecorator {
   return (modelPrototype: object, propertyKey: string | symbol): void => {
     deferredRegistrations.push(installer =>
@@ -260,7 +260,7 @@ export interface ModelEventMetadata {
   /**
    * Runtime key for the referencing model property
    */
-  propertyKey: string | symbol | number;
+  propertyKey: number | string | symbol;
   /**
    * Type of event system hook
    */

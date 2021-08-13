@@ -7,7 +7,7 @@ export const deferredModelDecoratorRegistrations: DeferredModelDecoratorRegistra
 /**
  * Registers the decorated model with the provided information
  */
-// tslint:disable-next-line:only-arrow-functions
+// eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 export function Model(registrationInfo: ModelRegistrationInformation): (target: ObjectConstructable) => void {
   return (modelClass: ObjectConstructable): void => {
     deferredModelDecoratorRegistrations.push(modelLibrary =>
@@ -19,7 +19,7 @@ export function Model(registrationInfo: ModelRegistrationInformation): (target: 
 /**
  * Registers the decorated property with the containing model
  */
-// tslint:disable-next-line:only-arrow-functions
+// eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 export function ModelProperty(registrationInfo: ModelPropertyRegistrationInformation): PropertyDecorator {
   return (modelPrototype: object, propertyKey: string | symbol): void => {
     deferredModelDecoratorRegistrations.push(modelLibrary =>

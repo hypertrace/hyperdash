@@ -84,7 +84,7 @@ export class ModelDeserializer implements Deserializer<ModelJson, object> {
     const propertyTypeOverride = this.modelPropertyTypeLibrary.getPropertyDeserializer(metadata.type);
     const defaultDeserialize = this.deserializationManager.deserialize.bind(this.deserializationManager);
 
-    return propertyTypeOverride || (defaultDeserialize as DeserializationFunction);
+    return propertyTypeOverride ?? (defaultDeserialize as DeserializationFunction);
   }
 
   private isObjectWithTypeProperty(json?: JsonPrimitive): json is ModelJson {

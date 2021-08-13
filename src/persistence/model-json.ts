@@ -14,4 +14,4 @@ export interface ModelJson {
  */
 export interface JsonPrimitiveArray extends Array<JsonPrimitive> {}
 
-export type JsonPrimitive = string | number | boolean | object | undefined | null | JsonPrimitiveArray | ModelJson;
+export type JsonPrimitive = JsonPrimitiveArray | ModelJson | boolean | number | object | string | null | undefined;

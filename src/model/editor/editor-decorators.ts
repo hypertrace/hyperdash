@@ -10,7 +10,8 @@ export const modelPropertyEditorRegistrations: {
 /**
  * Registers the decorated editor to the provided property type
  */
-// tslint:disable-next-line:only-arrow-functions
+
+// eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 export function ModelPropertyEditor(
   registrationInfo: EditorRegistrationInformation
 ): (target: ObjectConstructable) => void {

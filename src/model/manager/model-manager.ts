@@ -211,11 +211,11 @@ export class ModelManager {
     return cloneDeepWith(this.modelInstanceMap.get(instance)!, cloneFunction) as ModelInstanceData;
   }
 
-  private modelHasInitHook<T extends object>(model: T & Partial<ModelOnInit>): model is T & ModelOnInit {
+  private modelHasInitHook<T extends object>(model: Partial<ModelOnInit> & T): model is ModelOnInit & T {
     return typeof model.modelOnInit === 'function';
   }
 
-  private modelHasDestroyHook<T extends object>(model: T & Partial<ModelOnDestroy>): model is T & ModelOnDestroy {
+  private modelHasDestroyHook<T extends object>(model: Partial<ModelOnDestroy> & T): model is ModelOnDestroy & T {
     return typeof model.modelOnDestroy === 'function';
   }
 
