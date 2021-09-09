@@ -12,6 +12,7 @@ export class PrimitiveDeserializer implements Deserializer<JsonPrimitive, JsonPr
    * @inheritdoc
    */
   public canDeserialize(json: JsonPrimitive): json is JsonPrimitive {
+    // eslint-disable-next-line no-null/no-null
     return json === null || includes(PrimitiveDeserializer.ALLOWED_PRIMITIVE_TYPES, typeof json);
   }
 

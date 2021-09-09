@@ -12,6 +12,7 @@ export class PrimitiveSerializer implements Serializer<JsonPrimitive> {
    * @inheritdoc
    */
   public canSerialize(value: unknown): value is JsonPrimitive {
+    // eslint-disable-next-line no-null/no-null
     return value === null || includes(PrimitiveSerializer.ALLOWED_PRIMITIVE_TYPES, typeof value);
   }
 

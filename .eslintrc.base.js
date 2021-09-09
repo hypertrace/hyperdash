@@ -28,7 +28,7 @@ module.exports = {
     'eslint-plugin-prefer-arrow',
     'eslint-plugin-no-null',
     'eslint-plugin-jsdoc',
-    'eslint-plugin-react',
+    // 'eslint-plugin-react',
     '@typescript-eslint',
     '@typescript-eslint/tslint'
   ],

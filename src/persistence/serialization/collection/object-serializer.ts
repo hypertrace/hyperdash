@@ -13,6 +13,7 @@ export class ObjectSerializer implements Serializer<object, object> {
    * @inheritdoc
    */
   public canSerialize(value: unknown): value is object {
+    // eslint-disable-next-line no-null/no-null
     return typeof value === 'object' && value !== null && Object.getPrototypeOf(value) === Object.prototype;
   }
 

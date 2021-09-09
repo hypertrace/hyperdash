@@ -167,6 +167,7 @@ export class ModelManager {
    * Returns true if the provided value is a tracked model, false otherwise
    */
   public isTrackedModel(value: unknown): boolean {
+    // eslint-disable-next-line no-null/no-null
     if (typeof value !== 'object' || value === null) {
       return false;
     }

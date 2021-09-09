@@ -15,32 +15,53 @@
     "@typescript-eslint/prefer-nullish-coalescing": "error",
     "@typescript-eslint/no-namespace": "error",
 
-
-    "no-null/no-null": "off",
     "no-shadow": "off",
-    "@typescript-eslint/consistent-indexed-object-style": "off",
-    "@typescript-eslint/consistent-type-imports": "off",
-    "@typescript-eslint/method-signature-style": "off",
+    "@typescript-eslint/no-shadow": "error",
+
+    "no-null/no-null": "error",
+
+    "@typescript-eslint/method-signature-style": ["error", "method"],
     "@typescript-eslint/no-magic-numbers": "off",
-    "@typescript-eslint/prefer-optional-chain": "off",
-    "@typescript-eslint/space-before-function-paren": "off",
-    "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/prefer-readonly-parameter-types": "off",
+    "@typescript-eslint/space-before-function-paren": ["error", "never"],
     "@typescript-eslint/no-extra-parens": "off",
-    "@typescript-eslint/ban-types": "off",
-    "@typescript-eslint/strict-boolean-expressions": "off",
-    "@typescript-eslint/no-empty-interface": "off",
+
+    "@typescript-eslint/explicit-function-return-type": [
+      "error",
+      {
+        "allowExpressions": true
+      }
+    ],
+    "@typescript-eslint/ban-types": "error",
+    "@typescript-eslint/no-empty-interface": "error",
     "@typescript-eslint/no-type-alias": "off",
     "@typescript-eslint/init-declarations": "off",
-    "@typescript-eslint/prefer-enum-initializers": "off",
-    "@typescript-eslint/no-confusing-void-expression": "off",
-    "@typescript-eslint/restrict-template-expressions": "off",
-    "@typescript-eslint/no-implicit-any-catch": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/prefer-enum-initializers": "error",
+    "@typescript-eslint/no-confusing-void-expression": "error",
+    "@typescript-eslint/restrict-template-expressions": [
+      "error",
+      {
+        "allowNumber": true,
+        "allowBoolean": true,
+        "allowAny": false,
+        "allowNullish": true
+      }
+    ],
+    "@typescript-eslint/no-loop-func": "error",
+    "@typescript-eslint/ban-tslint-comment": "error",
+
+    "capitalized-comments": "error",
+    "spaced-comment": "off",
+
+    "todo": "true",
+
     "@typescript-eslint/array-type": "off",
-    "@typescript-eslint/no-loop-func": "off",
-    "@typescript-eslint/ban-tslint-comment": "off",
-    "capitalized-comments": "off",
-    "spaced-comment": "off"
+    "@typescript-eslint/explicit-module-boundary-types": "error",
+
+    "@typescript-eslint/no-implicit-any-catch": "off",
+    "@typescript-eslint/strict-boolean-expressions": "off",
+    "@typescript-eslint/prefer-readonly-parameter-types": "off",
+    "@typescript-eslint/prefer-optional-chain": "off",
+    "@typescript-eslint/consistent-indexed-object-style": "off",
+    "@typescript-eslint/consistent-type-imports": "off"
   }
 }

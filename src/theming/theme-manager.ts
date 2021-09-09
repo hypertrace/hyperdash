@@ -53,6 +53,7 @@ export class ThemeManager {
    * Returns true if the model JSON provided contains a theme property
    */
   public modelJsonHasTheme(modelJson: ModelJson): modelJson is ModelJsonWithTheme {
+    // eslint-disable-next-line no-null/no-null
     return 'theme' in modelJson && typeof modelJson.theme === 'object' && modelJson.theme !== null;
   }
 

@@ -14,6 +14,7 @@ export class ObjectDeserializer implements Deserializer<object, object> {
    * @inheritdoc
    */
   public canDeserialize(json: JsonPrimitive): json is object {
+    // eslint-disable-next-line no-null/no-null
     return typeof json === 'object' && json !== null && Object.getPrototypeOf(json) === Object.prototype;
   }
 

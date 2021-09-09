@@ -90,6 +90,7 @@ export class ModelDeserializer implements Deserializer<ModelJson, object> {
   private isObjectWithTypeProperty(json?: JsonPrimitive): json is ModelJson {
     return (
       typeof json === 'object' &&
+      // eslint-disable-next-line no-null/no-null
       json !== null &&
       Object.getPrototypeOf(json) === Object.prototype &&
       'type' in json &&
