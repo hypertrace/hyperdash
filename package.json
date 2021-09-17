@@ -10,9 +10,8 @@
   ],
   "scripts": {
     "lint": "npm run lint:src && npm run lint:test",
-    "eslint:src": "eslint -c eslint.src.json --ext .ts 'src' --ignore-pattern 'src/**/*.test.ts'",
-    "eslint:src:fix": "eslint -c eslint.src.json --ext .ts 'src' --ignore-pattern 'src/**/*.test.ts' --fix",
-
+    "eslint:src": "eslint -c eslint.json --ext .ts 'src' --ignore-pattern 'src/**/*.test.ts'",
+    "eslint:src:fix": "eslint -c eslint.json --ext .ts 'src' --ignore-pattern 'src/**/*.test.ts' --fix",
     "eslint:test": "eslint -c eslint.test.json --ext .test.ts 'src'",
     "lint:src": "tslint --project tsconfig.json -t codeFrame 'src/**/*.ts' -e 'src/**/*.{test,spec}.ts'",
     "lint:test": "tslint -c tslint.spec.json --project tsconfig.json -t codeFrame 'test/**/*.ts' 'src/**/*.{test,spec}.ts'",
@@ -105,6 +104,8 @@
     "core-js": "3.16.1",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-header": "^3.1.1",
     "eslint-plugin-import": "^2.24.0",
     "eslint-plugin-jsdoc": "^36.0.7",
     "eslint-plugin-no-null": "^1.0.2",
