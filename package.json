@@ -109,7 +109,7 @@
     "rollup": "^2.60.1",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-sourcemaps": "^0.6.3",
-    "rollup-plugin-typescript2": "^0.31.0",
+    "rollup-plugin-typescript2": "^0.31.1",
     "rxjs": "6.6.7",
     "semantic-release": "18.0.0",
     "ts-jest": "^26.5.6",
