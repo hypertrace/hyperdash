@@ -103,7 +103,7 @@
     "jest-html-reporter": "^3.4.1",
     "jest-junit": "^13.0.0",
     "lodash": "^4.17.21",
-    "prettier": "^2.4.1",
+    "prettier": "^2.5.0",
     "pretty-quick": "^3.1.2",
     "rimraf": "^3.0.2",
     "rollup": "^2.60.1",
