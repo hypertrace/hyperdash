@@ -20,7 +20,8 @@
     "test:prod": "npm run lint && npm run test -- --coverage --no-cache -i",
     "commit": "git-cz",
     "semantic-release": "semantic-release",
-    "upload-coverage": "codecov"
+    "upload-coverage": "codecov",
+    "prepare": "husky install"
   },
   "config": {
     "commitizen": {
@@ -77,13 +78,6 @@
     "extends": [
       "@commitlint/config-conventional"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-push": "npm run test:prod",
-      "pre-commit": "pretty-quick --staged"
-    }
   },
   "devDependencies": {
     "@commitlint/cli": "^16.1.0",
