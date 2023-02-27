@@ -5,19 +5,15 @@ on:
       - main
 jobs:
   publish:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Check out code
-        uses: actions/checkout@v2
-
-      - name: Cache node modules
-        uses: actions/cache@v2
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('package.json') }}-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ hashFiles('package.json') }}-
-            ${{ runner.os }}-node-
+          node-version: 16
+          cache: 'npm'
 
       - name: NPM Install
         run: npm ci
