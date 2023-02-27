@@ -6,19 +6,16 @@ on:
       - main
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Cache node modules
-        uses: actions/cache@v2
+      - name: Set up Node 16
+        uses: actions/setup-node@v3
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('package.json') }}-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ hashFiles('package.json') }}-
-            ${{ runner.os }}-node-
+          node-version: '16'
+          cache: 'npm'
 
       - name: NPM Install
         run: npm ci
@@ -26,21 +23,18 @@ jobs:
       - name: Build
         run: npm run build
   test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: Cache node modules
-        uses: actions/cache@v2
+      - name: Set up Node 16
+        uses: actions/setup-node@v3
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('package.json') }}-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ hashFiles('package.json') }}-
-            ${{ runner.os }}-node-
+          node-version: '16'
+          cache: 'npm'
 
       - name: NPM Install
         run: npm ci
@@ -49,12 +43,12 @@ jobs:
         run: npm run test:prod
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v3
         with:
           fail_ci_if_error: true
 
       - name: Publish Unit Test Results
-        uses: docker://ghcr.io/enricomi/publish-unit-test-result-action:v1.6
+        uses: EnricoMi/publish-unit-test-result-action@v2
         continue-on-error: true
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
