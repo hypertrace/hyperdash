@@ -14,6 +14,14 @@ describe('Model manager', () => {
     // Value used to disambiguate equality between instances
     public readonly value: number = Math.random();
   };
+  const testClass1 = class TestClass1 {
+    // Value used to disambiguate equality between instances
+    public readonly value: number = Math.random();
+  };
+  const testClass2 = class TestClass2 {
+    // Value used to disambiguate equality between instances
+    public readonly value: number = Math.random();
+  };
   let manager: ModelManager;
   let mockLogger: PartialObjectMock<Logger>;
   let mockApiBuilder: PartialObjectMock<ModelApiBuilder<ModelApi>>;
@@ -57,6 +65,15 @@ describe('Model manager', () => {
     );
 
     manager.registerModelApiBuilder(mockApiBuilder as ModelApiBuilder<ModelApi>);
+  });
+
+  test('returns array of instances matching arg', () => {
+    manager.construct(testClass);
+    manager.construct(testClass);
+    manager.construct(testClass1);
+    expect(manager.getModelInstances(testClass).length).toBe(2);
+    expect(manager.getModelInstances(testClass1).length).toBe(1);
+    expect(manager.getModelInstances(testClass2).length).toBe(0);
   });
 
   test('allows constructing new models', () => {

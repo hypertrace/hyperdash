@@ -13,7 +13,7 @@ import { ModelOnDestroy, ModelOnInit } from './model-lifecycle-hooks';
  * models.
  */
 export class ModelManager {
-  private readonly modelInstanceMap: WeakMap<object, ModelInstanceData> = new WeakMap();
+  private readonly modelInstanceMap: Map<object, ModelInstanceData> = new Map();
   private readonly apiBuilders: ModelApiBuilder<ModelApi>[] = [];
   private readonly decorators: ModelDecorator[] = [];
 
@@ -23,6 +23,13 @@ export class ModelManager {
     private readonly modelDestroyedEvent: ModelDestroyedEvent,
     private readonly beforeModelDestroyedEvent: BeforeModelDestroyedEvent
   ) {}
+
+  /**
+   * Returns a shallow copy array of model instances that match the argument model class
+   */
+  public getModelInstances<T extends object>(modelClass: Constructable<T>): object[] {
+    return Array.from(this.modelInstanceMap.keys()).filter(modelInstance => modelInstance instanceof modelClass);
+  }
 
   /**
    * Constructs (@see `ModelManager.construct`) then initializes (@see `ModelManager.initialize`) it
@@ -250,7 +257,8 @@ export class ModelManager {
   }
 }
 
-interface ModelInstanceData {
+// tslint:disable-next-line:completed-docs
+export interface ModelInstanceData {
   /**
    * Parent of tracked model
    */

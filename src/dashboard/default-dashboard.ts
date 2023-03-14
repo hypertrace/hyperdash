@@ -86,4 +86,11 @@ export class DefaultDashboard<TRoot extends object> implements Dashboard<TRoot> 
   public getRootDataSource<T extends DataSource<any>>(): T | undefined {
     return this.dataSourceManager.getRootDataSource(this.root) as T | undefined;
   }
+
+  /**
+   * @inheritdoc
+   */
+  public getModelInstances<T extends object>(modelClass: Constructable<T>): object[] {
+    return this.modelManager.getModelInstances<T>(modelClass);
+  }
 }
