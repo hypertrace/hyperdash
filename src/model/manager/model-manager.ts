@@ -257,8 +257,7 @@ export class ModelManager {
   }
 }
 
-// tslint:disable-next-line:completed-docs
-export interface ModelInstanceData {
+interface ModelInstanceData {
   /**
    * Parent of tracked model
    */
