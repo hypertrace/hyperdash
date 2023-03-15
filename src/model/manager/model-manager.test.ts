@@ -68,13 +68,15 @@ describe('Model manager', () => {
   });
 
   test('returns array of instances matching arg', () => {
-    manager.construct(testClass);
-    manager.construct(testClass);
-    manager.construct(testClass1);
-    expect(manager.getModelInstances(testClass).length).toBe(2);
-    expect(manager.getModelInstances(testClass1).length).toBe(1);
-    expect(manager.getModelInstances(testClass2).length).toBe(0);
-    expect(manager.getModelInstances(testClass, {}).length).toBe(0);
+    expect(manager.getModelInstances(testClass, {})).toStrictEqual([]);
+
+    const instance = manager.construct(testClass);
+    const instance1 = manager.construct(testClass1, instance);
+    const instance2 = manager.construct(testClass2, instance1);
+    expect(manager.getModelInstances(testClass, instance)).toStrictEqual([instance]);
+    expect(manager.getModelInstances(testClass1, instance)).toStrictEqual([instance1]);
+    expect(manager.getModelInstances(testClass2, instance)).toStrictEqual([instance2]);
+    expect(manager.getModelInstances(testClass2, instance1)).toStrictEqual([instance2]);
   });
 
   test('allows constructing new models', () => {

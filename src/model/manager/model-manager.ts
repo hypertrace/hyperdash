@@ -13,7 +13,7 @@ import { ModelOnDestroy, ModelOnInit } from './model-lifecycle-hooks';
  * models.
  */
 export class ModelManager {
-  private readonly modelInstanceMap: Map<object, ModelInstanceData> = new Map();
+  private readonly modelInstanceMap: WeakMap<object, ModelInstanceData> = new WeakMap();
   private readonly apiBuilders: ModelApiBuilder<ModelApi>[] = [];
   private readonly decorators: ModelDecorator[] = [];
 
@@ -27,10 +27,18 @@ export class ModelManager {
   /**
    * Returns a shallow copy array of model instances that match the argument model class
    */
-  public getModelInstances<T extends object>(modelClass: Constructable<T>, root?: object): object[] {
-    return Array.from(this.modelInstanceMap.keys())
-      .filter(modelInstance => root === undefined || this.getRoot(modelInstance) === root)
-      .filter(modelInstance => modelInstance instanceof modelClass);
+  public getModelInstances<T extends object>(modelClass: Constructable<T>, root: object): object[] {
+    let found: object[] = [];
+
+    if (root instanceof modelClass) {
+      found = [...found, root];
+    }
+
+    this.modelInstanceMap
+      .get(root)
+      ?.children.forEach(child => (found = [...found, ...this.getModelInstances(modelClass, child)]));
+
+    return found;
   }
 
   /**
