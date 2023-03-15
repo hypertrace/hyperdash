@@ -74,6 +74,7 @@ describe('Model manager', () => {
     expect(manager.getModelInstances(testClass).length).toBe(2);
     expect(manager.getModelInstances(testClass1).length).toBe(1);
     expect(manager.getModelInstances(testClass2).length).toBe(0);
+    expect(manager.getModelInstances(testClass, {}).length).toBe(0);
   });
 
   test('allows constructing new models', () => {

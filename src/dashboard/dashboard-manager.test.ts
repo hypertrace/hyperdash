@@ -188,6 +188,6 @@ describe('Dashboard manager', () => {
     mockModelManager.getModelInstances = jest.fn().mockReturnValue([new mockDataSource()]);
 
     expect(dashboard.getModelInstances(mockDataSource).length).toBe(1);
-    expect(mockModelManager.getModelInstances).toHaveBeenCalledWith(mockDataSource);
+    expect(mockModelManager.getModelInstances).toHaveBeenCalledWith(mockDataSource, {});
   });
 });

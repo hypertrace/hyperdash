@@ -91,6 +91,6 @@ export class DefaultDashboard<TRoot extends object> implements Dashboard<TRoot> 
    * @inheritdoc
    */
   public getModelInstances<T extends object>(modelClass: Constructable<T>): object[] {
-    return this.modelManager.getModelInstances<T>(modelClass);
+    return this.modelManager.getModelInstances<T>(modelClass, this.root);
   }
 }

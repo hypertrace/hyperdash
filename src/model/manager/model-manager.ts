@@ -27,8 +27,10 @@ export class ModelManager {
   /**
    * Returns a shallow copy array of model instances that match the argument model class
    */
-  public getModelInstances<T extends object>(modelClass: Constructable<T>): object[] {
-    return Array.from(this.modelInstanceMap.keys()).filter(modelInstance => modelInstance instanceof modelClass);
+  public getModelInstances<T extends object>(modelClass: Constructable<T>, root?: object): object[] {
+    return Array.from(this.modelInstanceMap.keys())
+      .filter(modelInstance => root === undefined || this.getRoot(modelInstance) === root)
+      .filter(modelInstance => modelInstance instanceof modelClass);
   }
 
   /**
