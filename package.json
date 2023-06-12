@@ -89,7 +89,7 @@
     "@types/lodash-es": "^4.17.7",
     "@types/node": "^20.2.5",
     "commitizen": "^4.3.0",
-    "core-js": "3.30.2",
+    "core-js": "3.31.0",
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^8.0.3",
     "jest": "^26.6.3",
