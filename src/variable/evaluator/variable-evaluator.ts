@@ -27,10 +27,9 @@ export class VariableEvaluator<T = unknown> {
     };
 
     try {
-      const value = this.convertNodeToValue(this.parser.parse(), dictionary) as T;
-      result.value = value;
+      result.value = this.convertNodeToValue(this.parser.parse(), dictionary) as T;
     } catch (e) {
-      result.error = e && (e as Error).message;
+      result.error = (e as Error)?.message;
     }
 
     const variablesAfterEvaluate = [...this.variableNamesFromLastEvaluate];
