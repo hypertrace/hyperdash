@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { filter, mapTo, take } from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
 import { DashboardEvent } from '../../communication/dashboard-event';
 import { DashboardEventManager } from '../../communication/dashboard-event-manager';
 
@@ -20,7 +20,7 @@ export class BeforeModelDestroyedEvent extends DashboardEvent<object> {
   public getBeforeDestructionObservable(model: object): Observable<void> {
     return this.getObservable().pipe(
       filter(destroyedModel => destroyedModel === model),
-      mapTo(undefined),
+      map(() => undefined),
       take(1)
     );
   }
