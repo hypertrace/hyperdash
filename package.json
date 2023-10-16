@@ -80,7 +80,7 @@
     ]
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.7.2",
+    "@commitlint/cli": "^17.8.0",
     "@commitlint/config-conventional": "^17.7.0",
     "@rollup/plugin-json": "^6.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",
