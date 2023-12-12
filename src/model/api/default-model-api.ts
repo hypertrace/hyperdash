@@ -69,7 +69,7 @@ export class DefaultModelApi implements ModelApi {
   /**
    * @inheritdoc
    */
-  public getData<T>(): Observable<T> {
+  public getData<T, R>(request?: R): Observable<T> {
     const dataSource = this.dataSourceManager.getClosest<T>(this.model);
 
     if (!dataSource) {
@@ -78,7 +78,7 @@ export class DefaultModelApi implements ModelApi {
       return EMPTY;
     }
 
-    return dataSource.getData();
+    return dataSource.getData(request);
   }
 
   /**

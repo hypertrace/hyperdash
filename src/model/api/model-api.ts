@@ -32,7 +32,7 @@ export interface ModelApi {
    *     attached to)
    *   - Else, recurse upwards to parent
    */
-  getData<T>(): Observable<T>;
+  getData<T, R = unknown>(request?: R): Observable<T>;
 
   /**
    * Retrieves the merged theme specified for this model

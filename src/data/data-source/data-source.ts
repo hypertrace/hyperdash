@@ -6,11 +6,11 @@ export const dataSourceMarker = Symbol('Data Source Marker');
 /**
  * A model which can be used to retrieve data asynchronously
  */
-export interface DataSource<T> {
+export interface DataSource<T, R = unknown> {
   /**
    * Retrieves data of type T in the form of an observable
    */
-  getData(): Observable<T>;
+  getData(request?: R): Observable<T>;
 
   /**
    * A marker property used to determine if the implementing class is
