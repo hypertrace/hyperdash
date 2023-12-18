@@ -87,7 +87,7 @@
     "@rollup/plugin-typescript": "^11.1.5",
     "@types/jest": "^27.4.1",
     "@types/lodash-es": "^4.17.12",
-    "@types/node": "^20.10.4",
+    "@types/node": "^20.10.5",
     "commitizen": "^4.3.0",
     "core-js": "3.34.0",
     "cz-conventional-changelog": "^3.3.0",
