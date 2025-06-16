@@ -93,7 +93,7 @@
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^9.1.7",
     "jest": "^26.6.3",
-    "jest-config": "^27.5.1",
+    "jest-config": "^30.0.0",
     "jest-html-reporter": "^3.5.0",
     "jest-junit": "^16.0.0",
     "lodash": "^4.17.21",
