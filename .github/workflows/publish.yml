@@ -25,6 +25,5 @@ jobs:
         run: npm run semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_USERNAME: ${{ secrets.HAR_PUBLISH_USER }}
-          NPM_PASSWORD: ${{ secrets.HAR_PUBLISH_TOKEN }}
-          NPM_EMAIL: ${{ secrets.HAR_PUBLISH_USER }}
+          NPM_TOKEN: ${{ secrets.HAR_PUBLISH_TOKEN }}
+          NPM_CONFIG_REGISTRY: ${{ secrets.HAR_NPM_REGISTRY }}

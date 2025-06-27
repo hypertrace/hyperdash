@@ -123,9 +123,6 @@
     "type": "git",
     "url": "git@github.com:hypertrace/hyperdash.git"
   },
-  "publishConfig": {
-    "registry": "https://hypertrace.jfrog.io/artifactory/api/npm/npm/"
-  },
   "release": {
     "branches": [
       "main"
