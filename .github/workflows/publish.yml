@@ -5,14 +5,14 @@ on:
       - main
 jobs:
   publish:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Check out code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
           cache: 'npm'
 
       - name: NPM Install
@@ -25,6 +25,6 @@ jobs:
         run: npm run semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_USERNAME: ${{ secrets.NPM_USERNAME }}
-          NPM_PASSWORD: ${{ secrets.NPM_PASSWORD }}
-          NPM_EMAIL: ${{ secrets.NPM_EMAIL }}
+          NPM_USERNAME: ${{ secrets.HAR_PUBLISH_USER }}
+          NPM_PASSWORD: ${{ secrets.HAR_PUBLISH_TOKEN }}
+          NPM_EMAIL: ${{ secrets.HAR_PUBLISH_USER }}
