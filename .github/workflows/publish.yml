@@ -21,9 +21,15 @@ jobs:
       - name: Build
         run: npm run build
 
+      - uses: google-github-actions/auth@v2
+        id: auth
+        with:
+          token_format: access_token
+          workload_identity_provider: projects/1030413944741/locations/global/workloadIdentityPools/github-pool/providers/github-provider
+          service_account: github-publisher@hypertrace-repos.iam.gserviceaccount.com
       - name: Publish
         run: npm run semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.HAR_PUBLISH_TOKEN }}
-          NPM_CONFIG_REGISTRY: ${{ secrets.HAR_NPM_REGISTRY }}
+          NPM_TOKEN: ${{ steps.auth.outputs.access_token }}
+          NPM_CONFIG_REGISTRY: ${{ secrets.GAR_NPM_PUBLISH_REGISTRY }}
