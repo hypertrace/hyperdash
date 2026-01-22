@@ -96,7 +96,7 @@
     "jest-config": "^27.5.1",
     "jest-html-reporter": "^3.5.0",
     "jest-junit": "^16.0.0",
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.23",
     "prettier": "^3.7.4",
     "pretty-quick": "^4.2.2",
     "rimraf": "^6.1.2",
