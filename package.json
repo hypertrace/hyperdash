@@ -113,7 +113,7 @@
     "typescript": "^4.0.5"
   },
   "dependencies": {
-    "lodash-es": "^4.17.23"
+    "lodash-es": "^4.18.1"
   },
   "peerDependencies": {
     "core-js": "^3.6.5",
