@@ -23,7 +23,7 @@ export interface Dashboard<TRoot extends object = object> {
   setTimeRange(timeRange: TimeRange): this;
 
   /**
-   * Returns a serialized from of this dashboard. Note this does not
+   * Returns a serialized form of this dashboard. Note this does not
    * affect the dashboard in any way, it must be explicitly destroyed
    * if it is no longer in use.
    */
@@ -56,4 +56,10 @@ export interface Dashboard<TRoot extends object = object> {
    */
   // tslint:disable-next-line: no-any
   getRootDataSource<T extends DataSource<any>>(): T | undefined;
+
+  /**
+   * Returns a shallow copy array of model instances within a dashboard that match the
+   * argument model class
+   */
+  getModelInstances<T extends object>(modelClass: Constructable<T>): object[];
 }

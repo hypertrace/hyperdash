@@ -175,4 +175,19 @@ describe('Dashboard manager', () => {
     expect(mockModelManager.destroy).toHaveBeenCalledWith(mockOriginalDataSource);
     expect(mockDataSourceManager.setRootDataSource).toHaveBeenCalledWith(mockNewDataSource, dashboard.root);
   });
+
+  test('can retrieve model instances', () => {
+    const dashboard = dashboardManager.create({
+      type: 'serialized-model'
+    });
+
+    const mockDataSource = class MockDataSource {
+      public readonly value: number = Math.random();
+    };
+
+    mockModelManager.getModelInstances = jest.fn().mockReturnValue([new mockDataSource()]);
+
+    expect(dashboard.getModelInstances(mockDataSource).length).toBe(1);
+    expect(mockModelManager.getModelInstances).toHaveBeenCalledWith(mockDataSource, {});
+  });
 });
