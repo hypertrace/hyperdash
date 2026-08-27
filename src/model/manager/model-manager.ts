@@ -25,6 +25,23 @@ export class ModelManager {
   ) {}
 
   /**
+   * Returns a shallow copy array of model instances that match the argument model class
+   */
+  public getModelInstances<T extends object>(modelClass: Constructable<T>, root: object): object[] {
+    let found: object[] = [];
+
+    if (root instanceof modelClass) {
+      found = [...found, root];
+    }
+
+    this.modelInstanceMap
+      .get(root)
+      ?.children.forEach(child => (found = [...found, ...this.getModelInstances(modelClass, child)]));
+
+    return found;
+  }
+
+  /**
    * Constructs (@see `ModelManager.construct`) then initializes (@see `ModelManager.initialize`) it
    *
    * Throws Error if a parent is provided which is not tracked
